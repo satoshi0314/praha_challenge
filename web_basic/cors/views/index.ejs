@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>CORS sample</title>
+</head>
+<body>
+  <button onclick="sameOriginRequest()">same origin request</button>
+  <button onclick="crossOriginRequest()">cross origin request</button>
+  <button onclick="requestWithPreflightRequest()">request with preflight</button>
+
+  <script>
+    const sameOriginRequest = () => {
+      fetch('http://localhost:3001/same_origin')
+        .then(response => response.json())
+        .then(data => alert(data));
+    }
+
+    const crossOrigin = 'http://localhost:<%=crossOriginAppPort%>'
+    const crossOriginRequest = () => {
+      fetch(`${crossOrigin}/simple_request`)
+        .then(response => response.json())
+        .then(data => alert(data))
+    }
+
+    const fetchOption = {}
+    const headers = new Headers()
+    headers.append('Content-Type', 'application/json')
+    headers.append('X-Custom-Header', 'custom-header')
+    fetchOption['headers'] = headers
+    fetchOption['method'] = 'POST'
+
+    const requestWithPreflightRequest = () => {
+      fetch(`${crossOrigin}/request_with_preflight`, fetchOption)
+        .then(response => response.json())
+        .then(data => alert(data))
+    }
+  </script>
+</body>
+</html>
