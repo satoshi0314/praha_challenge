@@ -1,4 +1,5 @@
 /web_basic/sample_web_server/node_modules
 /web_basic/third_party_cookie/node_modules
+/web_basic/cors/node_modules
 npm-debug.log
 .node-version
